@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { onMounted, watch } from 'vue';
 import Task from '../components/Task.vue'
   export default{
     name: 'home' ,
@@ -40,19 +39,10 @@ import Task from '../components/Task.vue'
       addTask(){
         if(this.NewTaskTitle){
           this.$store.commit('ADD_TASK', this.NewTaskTitle);
-          localStorage.setItem("task", this.NewTaskTitle);
+         // localStorage.setItem("task", this.NewTaskTitle);
           this.NewTaskTitle = '';
         }
       }
     }
   }
-/*  
-    watch(task, newVal => {
-      localStorage.setItem('task', JSON.stringify(newVal))
-    }, { deep: true})
-
-    onMounted(() => {
-      task.value = localStorage.getItem(task) || ''
-    })
-      */
 </script>

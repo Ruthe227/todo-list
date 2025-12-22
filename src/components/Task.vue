@@ -37,7 +37,10 @@
                 this.$store.commit('DONE_TASK', this.task);
             },
             updateTask(){
-                this.$store.commit('UPDATE_TASK', this.task);
+              if(this.updateTaskTitle){
+                this.$store.commit('UPDATE_TASK', this.updateTaskTitle);
+                this.updateTaskTitle = '';
+              }
             },
             deleteTask(){
                 this.$store.commit('DELETE_TASK', this.task);

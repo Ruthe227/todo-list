@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     //array to store tasks in
-    tasks:[],
+    tasks:JSON.parse(localStorage.getItem('local-tasks')) || [],
   },
   getters: {
     //method to return all tasks
@@ -19,10 +19,12 @@ export default createStore({
     //method to add a task
     ADD_TASK(state, task){
         state.tasks = [{content: task, done: false}, ...state.tasks];
+        localStorage.setItem('local-tasks', JSON.stringify(state.tasks));
       },
       //method to "mark" a task as done
       DONE_TASK(state, task){
         task.done = !task.done
+          localStorage.setItem('local-tasks', JSON.stringify(state.task.done));
       },
       //method to update a task
       UPDATE_TASK(state, updateTask){
@@ -34,11 +36,10 @@ export default createStore({
       //method to delete a task
       DELETE_TASK(state, task){
         state.tasks.splice(state.tasks.indexOf(task), 1);
+        localStorage.removeItem('task');
       },
   },
   actions: {
-    //method to store data to browser
-     // localStorage.setItem("task", state.task);
   },
   modules: {
   }
