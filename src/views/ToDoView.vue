@@ -2,9 +2,9 @@
   <div class ="home">
     <v-card class="mx-auto" max-width="400" >
     <v-text-field
-      v-model="NewTaskTitle"
-      @click:append="addTask()"
-      @keyup.enter="addTask()"
+     
+      @click:append="addTodo"
+      @keyup.enter="addTodo"
       class="pa-3"
       outlined
       label="Add Task to-do"
@@ -12,6 +12,7 @@
       hide-details
       clearable
    ></v-text-field>
+   <!--
       <v-list class="tasks">
         <Task
           v-for="(task, i) in $store.state.tasks"
@@ -19,6 +20,17 @@
           :task="task" />
 
       </v-list>
+    -->
+      <v-list 
+          v-for="(task, i) in $store.state.tasks"
+          :key="i"
+          :task="task"
+      >
+      <v-list-item>
+        {{ task.content }}
+      </v-list-item>
+      </v-list>
+    
     </v-card>
   </div>
 </template>
@@ -30,18 +42,31 @@ import Task from '../components/Task.vue'
     components:{
         Task
      },
-    data(){
-      return{
-        NewTaskTitle: '',
+    computed: {
+      loadTasks () {
+        return this.$store.state.tasks
       }
     },
     methods:{
-      addTask(){
-        if(this.NewTaskTitle){
-          this.$store.commit('ADD_TASK', this.NewTaskTitle);
-         // localStorage.setItem("task", this.NewTaskTitle);
-          this.NewTaskTitle = '';
-        }
+
+      addTodo(NewTaskTitle){
+        //checks for blank input
+        //if(NewTaskTitle.target.value.trim()){
+          this.$store.dispatch('createTask', NewTaskTitle)
+       // }
+        //reset input value to a blank to clear UI
+        NewTaskTitle = ''
+      },
+
+      updateTask(NewTaskTitle){
+      //const newTaskvalue = NewTaskTitle.target.value.trim()
+      this.$store.dispatch('updateTask', NewTaskTitle);
+      },
+
+      deleteTask(index) {
+        this.$store.dispatch('deleteTask', index).then(()=>{
+          this.loadTasks
+        })
       }
     }
   }

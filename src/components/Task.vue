@@ -31,20 +31,7 @@
 
 <script>
     export default{
-        props: ['task'],
-        methods: {
-            doneTask(){
-                this.$store.commit('DONE_TASK', this.task);
-            },
-            updateTask(){
-              if(this.updateTaskTitle){
-                this.$store.commit('UPDATE_TASK', this.updateTaskTitle);
-                this.updateTaskTitle = '';
-              }
-            },
-            deleteTask(){
-                this.$store.commit('DELETE_TASK', this.task);
-            }
-        }
+    //    props: ['task'],
+        
     }
 </script>
